@@ -30,7 +30,7 @@ get '/' => sub {
     $c->content_for(perldoc => "");
     $c->stash(module => $ENV{PERL_MODULES} || 'Mojolicious');
     my $template = $c->app->renderer->_bundled('perldoc');
-    $c->render(inline => $template, title => "foo", parts => parts);
+    $c->render(inline => $template, title => "perldoc", parts => parts);
 };
 
 hook after_render => sub {
