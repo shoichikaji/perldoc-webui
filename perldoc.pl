@@ -36,8 +36,11 @@ get '/' => sub {
 hook after_render => sub {
     my ($c, $out_ref) = @_;
     my $dom = Mojo::DOM->new( $$out_ref );
-    $dom->find('#mojobar-logo a')->first->attr({href => "/"});
-    $$out_ref = $dom->to_string;
+    my $first = $dom->find('#mojobar-logo a')->first;
+    if ($first) {
+        $first->attr({href => "/"});
+        $$out_ref = $dom->to_string;
+    }
 };
 
-app->start(@ARGV ? @ARGV : qw(prefork -m production));
+app->start(@ARGV ? @ARGV : "daemon");
